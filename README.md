@@ -410,5 +410,3 @@ npm run db:reset
 ## Support & Contributing
 
 For issues or contributions, please refer to the project repository.
-#   Z o r v y n - F i n a n c e - B a c k e n d  
- 
