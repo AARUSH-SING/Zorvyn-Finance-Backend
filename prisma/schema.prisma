@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id           String   @id @default(uuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         String   @default("VIEWER") // ADMIN, ANALYST, VIEWER
+  status       String   @default("ACTIVE") // ACTIVE, INACTIVE
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  records      Record[]
+  auditLogs    AuditLog[]
+}
+
+model Record {
+  id          String    @id @default(uuid())
+  amount      Int       // stored in cents for decimal safety
+  type        String    // INCOME, EXPENSE
+  category    String
+  date        DateTime
+  description String?
+  createdById String
+  createdBy   User      @relation(fields: [createdById], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+
+  @@index([type])
+  @@index([category])
+  @@index([date])
+  @@index([createdById])
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  action    String   // CREATE, UPDATE, DELETE
+  entity    String   // RECORD, USER
+  entityId  String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  details   String?  // JSON string of changes
+  createdAt DateTime @default(now())
+}
