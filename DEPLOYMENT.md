@@ -53,33 +53,8 @@ git push -u origin main
 
 ## Part 2: Live Hosting Options
 
-### Option A: **Railway (Recommended - Easiest)**
 
-#### Setup:
-1. Go to [railway.app](https://railway.app)
-2. Sign up with GitHub
-3. Click **New Project** → **Deploy from GitHub repo**
-4. Select `zorvyn-finance-backend` repository
-5. Railway auto-detects Node.js
-
-#### Add Environment Variables:
-1. Go to project settings
-2. Add variables:
-   ```
-   NODE_ENV: production
-   PORT: 8000
-   JWT_SECRET: your-secret-key-here-min-32-chars
-   JWT_EXPIRES_IN: 24h
-   DATABASE_URL: file:./data/prod.db
-   ```
-
-#### Deploy:
-- Railway auto-deploys on every push to main
-- Your API URL: `https://zorvyn-backend-xxx.railway.app`
-
----
-
-### Option B: **Render (Good Free Tier)**
+### **Render (Good Free Tier)**    
 
 #### Setup:
 1. Go to [render.com](https://render.com)
@@ -98,48 +73,10 @@ git push -u origin main
 #### Deploy:
 - Click **Create Web Service**
 - Deployment takes ~3-5 minutes
-- URL: `https://zorvyn-backend-xxx.onrender.com`
+- URL: `https://zorvyn-finance-backend-1-99fv.onrender.com` --> My Deployment Link
 
 ---
 
-### Option C: **Vercel (With Serverless Functions)**
-
-#### Setup:
-1. Go to [vercel.com](https://vercel.com)
-2. Sign up with GitHub
-3. Click **Add New** → **Project** → Select your repo
-4. Configure:
-   - **Framework**: Other
-   - **Build Command**: `npm run build`
-   - **Output Directory**: `dist`
-
-#### Limitations:
-- Vercel is optimized for Next.js/frontend
-- Node.js apps may timeout on serverless functions
-- **Not recommended for this backend**
-
----
-
-### Option D: **Heroku (Paid Option)**
-
-#### Setup:
-1. Download [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
-2. Log in: `heroku login`
-3. Create app: `heroku create zorvyn-backend`
-4. Add PostgreSQL addon: `heroku addons:create heroku-postgresql:hobby-dev`
-
-#### Deploy:
-```bash
-git push heroku main
-```
-
-#### Environment Variables:
-```bash
-heroku config:set NODE_ENV=production
-heroku config:set JWT_SECRET=your-secret-key
-```
-
----
 
 ## Part 3: Database for Production
 
@@ -277,9 +214,9 @@ jobs:
 **Quickest Path to Live:**
 
 1. Push to GitHub: 5 minutes
-2. Deploy on Railway: 2 minutes
+2. Deploy on Render: 2~5 minutes
 3. Test endpoints: 5 minutes
 
 **Total: ~12 minutes from now**
 
-Recommendation: **Use Railway** - it's the fastest and has excellent free tier.
+
