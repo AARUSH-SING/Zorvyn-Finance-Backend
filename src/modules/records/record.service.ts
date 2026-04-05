@@ -1,7 +1,7 @@
 import prisma from '../../common/utils/prisma';
 import { NotFoundError } from '../../common/errors';
 import { CreateRecordInput, UpdateRecordInput, ListRecordsQuery } from './record.schema';
-import { Record } from '@prisma/client';
+import { Record, RecordWhereInput, RecordUpdateInput } from '@prisma/client';
 
 export class RecordService {
   async create(input: CreateRecordInput, userId: string) {
@@ -22,7 +22,7 @@ export class RecordService {
   }
 
   async findAll(query: ListRecordsQuery) {
-    const where: Prisma.RecordWhereInput = { deletedAt: null };
+    const where: RecordWhereInput = { deletedAt: null };
 
     if (query.type) where.type = query.type;
     if (query.category) where.category = query.category;
@@ -66,7 +66,7 @@ export class RecordService {
 
   async update(id: string, input: UpdateRecordInput, userId: string) {
     await this.findById(id);
-    const data: Prisma.RecordUpdateInput = { ...input };
+    const data: RecordUpdateInput = { ...input };
     if (input.date) data.date = new Date(input.date);
 
     const record = await prisma.record.update({
