@@ -1,4 +1,5 @@
 import prisma from '../../common/utils/prisma';
+import { Record } from '@prisma/client';
 
 const activeRecordsWhere = { deletedAt: null };
 
@@ -38,7 +39,7 @@ export class DashboardService {
       orderBy: { _sum: { amount: 'desc' } },
     });
 
-    return records.map((r) => ({
+    return records.map((r: { category: string; type: string; _sum: { amount: number | null }; _count: number }) => ({
       category: r.category,
       type: r.type,
       total: r._sum.amount || 0,

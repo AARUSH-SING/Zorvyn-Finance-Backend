@@ -1,7 +1,7 @@
 import prisma from '../../common/utils/prisma';
 import { NotFoundError } from '../../common/errors';
 import { CreateRecordInput, UpdateRecordInput, ListRecordsQuery } from './record.schema';
-import { Prisma } from '@prisma/client';
+import { Record } from '@prisma/client';
 
 export class RecordService {
   async create(input: CreateRecordInput, userId: string) {
